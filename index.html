@@ -1073,6 +1073,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
             target="_blank"
             rel="noopener noreferrer"
             data-track="Contact"
+            data-track-event="KlikWhatsAppNavbar"
             data-track-name="Navbar"
           >
             <img src="wa.png" alt="WhatsApp" width="24" height="24" />
@@ -1099,6 +1100,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
               target="_blank"
               rel="noopener noreferrer"
               data-track="Contact"
+              data-track-event="KlikFreeKonsultasi"
               data-track-name="Hero"
             >
               Free Konsultasi
@@ -1153,6 +1155,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-track="Contact"
+                  data-track-event="KlikBeliPromptGenerator"
                   data-track-name="Prompt Generator"
                   >Beli sekarang</a
                 >
@@ -1176,6 +1179,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-track="Contact"
+                  data-track-event="KlikBeliPresentationBuilder"
                   data-track-name="Presentation builder"
                   >Beli sekarang</a
                 >
@@ -1403,6 +1407,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-track="Contact"
+                data-track-event="KlikKonsultasiGratis"
                 data-track-name="Konsultasi Gratis"
                 >Konsultasi gratis via WhatsApp</a
               >
@@ -1540,14 +1545,18 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
         window.fbq("track", "PageView");
       }
 
-      /* ===== TrackedLink: kirim event saat link [data-track] diklik ===== */
+      /* ===== TrackedLink: kirim event saat link [data-track] diklik =====
+       * data-track       : event standar (Contact / ViewContent) — total semua klik
+       * data-track-event : event unik per tombol — supaya jumlah klik bisa dibedakan
+       * data-track-name  : parameter content_name (nama tombol / lokasi)          */
       document.addEventListener("click", function (e) {
         const el = e.target.closest("[data-track]");
         if (!el) return;
         const params = el.dataset.trackName
           ? { content_name: el.dataset.trackName }
           : undefined;
-        track(el.dataset.track, params);
+        if (el.dataset.track) track(el.dataset.track, params);
+        if (el.dataset.trackEvent) track(el.dataset.trackEvent, params);
       });
 
       /* ===== Slider (port dari components/Slider.tsx): dots + drag manual ===== */
