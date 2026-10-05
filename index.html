@@ -8,6 +8,32 @@
       name="description"
       content="Landing page sederhana untuk membeli produk digital lewat WhatsApp. Pilih produk, klik tombol WhatsApp, lalu selesaikan pembelian."
     />
+    <!-- Meta Pixel Code -->
+    <script>
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      }(window, document, "script",
+        "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "4676675365992540");
+      fbq("track", "PageView");
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
+/></noscript>
+    <!-- End Meta Pixel Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -1472,8 +1498,9 @@
       </footer>
     </div>
     <script>
-      /* ===== Meta Pixel (opsional) — isi ID di bawah; biarkan kosong untuk nonaktif ===== */
-      const META_PIXEL_ID = "";
+      /* ===== Meta Pixel — kode utama ada di <head>; fallback loader di bawah hanya
+       aktif jika kode head tidak ada (mis. dihapus). ID harus sama dengan head. ===== */
+      const META_PIXEL_ID = "4676675365992540";
 
       function track(event, params) {
         if (typeof window.fbq !== "function") return;
@@ -1485,7 +1512,7 @@
         }
       }
 
-      if (META_PIXEL_ID) {
+      if (META_PIXEL_ID && typeof window.fbq !== "function") {
         (function (f, b, e, v, n, t, s) {
           if (f.fbq) return;
           n = f.fbq = function () {
