@@ -10,10 +10,12 @@
     />
     <!-- Meta Pixel Code -->
     <script>
-      !function (f, b, e, v, n, t, s) {
+      !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
         };
         if (!f._fbq) f._fbq = n;
         n.push = n;
@@ -25,14 +27,22 @@
         t.src = v;
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-      }(window, document, "script",
-        "https://connect.facebook.net/en_US/fbevents.js");
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+      );
       fbq("init", "4676675365992540");
       fbq("track", "PageView");
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
-/></noscript>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
+    /></noscript>
     <!-- End Meta Pixel Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,7 +58,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
         box-sizing: border-box;
       }
       html {
-        scroll-padding-top: 5.5rem;
+        scroll-padding-top: 1rem;
       }
       @media (prefers-reduced-motion: no-preference) {
         html {
@@ -249,18 +259,34 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
         display: grid;
         place-items: center;
         height: 2.5rem;
-        width: 2.5rem;
+        width: 3.5rem;
         border-radius: 9999px;
-        background: #fff;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        transition: background 0.15s;
+        background-image: linear-gradient(to right, #0a84ff, #0a45ff);
+        box-shadow:
+          0 4px 6px -1px rgba(37, 99, 235, 0.3),
+          0 2px 4px -2px rgba(37, 99, 235, 0.3);
+        transition:
+          filter 0.15s,
+          box-shadow 0.15s;
       }
       .wa-btn:hover {
-        background: #ecfdf5;
+        filter: brightness(1.1);
+        box-shadow:
+          0 4px 6px -1px rgba(37, 99, 235, 0.5),
+          0 2px 4px -2px rgba(37, 99, 235, 0.5);
       }
       .wa-btn img {
-        height: 1.5rem;
-        width: 1.5rem;
+        display: none;
+      }
+      .wa-btn .wa-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+      }
+      .wa-btn .wa-arrow svg {
+        height: 1.25rem;
+        width: 1.25rem;
       }
       .wa-btn .wa-text {
         display: none;
@@ -277,6 +303,9 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
           background: #34d399;
         }
         .wa-btn img {
+          display: none;
+        }
+        .wa-btn .wa-arrow {
           display: none;
         }
         .wa-btn .wa-text {
@@ -371,6 +400,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
         line-height: 1.5rem;
         font-weight: 700;
         text-decoration: none;
+        width: 100%;
         transition:
           background 0.15s,
           filter 0.15s,
@@ -399,6 +429,11 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
       .btn-pill-secondary:hover {
         background: #fff;
         box-shadow: 0 0 0 1px rgba(10, 26, 79, 0.3);
+      }
+      @media (min-width: 640px) {
+        .btn-pill {
+          width: auto;
+        }
       }
       .hero-note {
         margin: 1.5rem 0 0;
@@ -605,6 +640,39 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
         box-shadow:
           0 10px 15px -3px rgba(37, 99, 235, 0.5),
           0 4px 6px -4px rgba(37, 99, 235, 0.5);
+      }
+      .tool-rating {
+        margin-top: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .stars {
+        display: flex;
+        gap: 0.0625rem;
+      }
+      .star {
+        font-size: 1rem;
+        line-height: 1;
+        color: #d1d5db;
+      }
+      .star.filled {
+        color: #facc15;
+      }
+      .star.half {
+        background: linear-gradient(to right, #facc15 50%, #d1d5db 50%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .rating-count {
+        font-size: 0.8125rem;
+        color: rgba(10, 26, 79, 0.6);
+      }
+      .count {
+        font-weight: 700;
+        color: #0a1a4f;
       }
       @media (min-width: 640px) {
         .tools-track {
@@ -1076,6 +1144,20 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
             data-track-event="KlikWhatsAppNavbar"
             data-track-name="Navbar"
           >
+            <span class="wa-arrow" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="20"
+                height="20"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
             <img src="wa.png" alt="WhatsApp" width="24" height="24" />
             <span class="wa-text">WhatsApp</span>
           </a>
@@ -1103,6 +1185,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
               data-track-event="KlikFreeKonsultasi"
               data-track-name="Hero"
             >
+              <img src="wa.png" alt="" width="20" height="20" />
               Free Konsultasi
               <svg
                 viewBox="0 0 24 24"
@@ -1120,7 +1203,7 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
             </a>
             <a
               class="btn-pill btn-pill-secondary"
-              href="#tools"
+              href="#tools-list"
               data-track="ViewContent"
               data-track-name="Section Tools"
               >Lihat Tools</a
@@ -1133,7 +1216,12 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
           <h2 class="section-title">
             Pilih tools yang paling dekat dengan masalahmu
           </h2>
-          <div class="tools-wrap slider" data-slider data-label="Tools">
+          <div
+            id="tools-list"
+            class="tools-wrap slider"
+            data-slider
+            data-label="Tools"
+          >
             <div class="slider-track tools-track" data-slider-track>
               <article class="tool-card">
                 <span class="tool-badge">Terlaris</span>
@@ -1149,6 +1237,18 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
                   Bantu kamu buat Prompt yang lebih Bisa dingertiin AI
                 </p>
                 <p class="tool-price">Rp 49.000</p>
+                <div class="tool-rating" aria-label="Rating 4.5 dari 5">
+                  <div class="stars">
+                    <span class="star filled">★</span>
+                    <span class="star filled">★</span>
+                    <span class="star filled">★</span>
+                    <span class="star filled">★</span>
+                    <span class="star half">★</span>
+                  </div>
+                  <span class="rating-count"
+                    ><span class="count" data-target="128">0</span> ulasan</span
+                  >
+                </div>
                 <a
                   class="btn-buy"
                   href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20order%20tools%20Playground%20Prompting.%20Bagaimana%20cara%20pembayarannya%3F"
@@ -1173,6 +1273,18 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
                   Bantu kamu ngerjain Slide Presentasi ketika mepet Deadline!
                 </p>
                 <p class="tool-price">Rp 49.000</p>
+                <div class="tool-rating" aria-label="Rating 4.5 dari 5">
+                  <div class="stars">
+                    <span class="star filled">★</span>
+                    <span class="star filled">★</span>
+                    <span class="star filled">★</span>
+                    <span class="star filled">★</span>
+                    <span class="star half">★</span>
+                  </div>
+                  <span class="rating-count"
+                    ><span class="count" data-target="87">0</span> ulasan</span
+                  >
+                </div>
                 <a
                   class="btn-buy"
                   href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20order%20tools%20Presentation%20Builder.%20Bagaimana%20cara%20pembayarannya%3F"
@@ -1692,6 +1804,50 @@ src="https://www.facebook.com/tr?id=4676675365992540&ev=PageView&noscript=1"
       document.getElementById("year").textContent = String(
         new Date().getFullYear(),
       );
+
+      /* ===== Count-up animation untuk rating ===== */
+      (function () {
+        function animateCount(el) {
+          var target = parseInt(el.dataset.target, 10);
+          if (isNaN(target)) return;
+          var duration = 1500;
+          var start = performance.now();
+          function update(now) {
+            var elapsed = now - start;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(target * eased);
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+        }
+
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  var counts = entry.target.querySelectorAll(
+                    ".count[data-target]",
+                  );
+                  counts.forEach(animateCount);
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.5 },
+          );
+          document.querySelectorAll(".tool-rating").forEach(function (el) {
+            observer.observe(el);
+          });
+        } else {
+          document
+            .querySelectorAll(".count[data-target]")
+            .forEach(function (el) {
+              el.textContent = el.dataset.target;
+            });
+        }
+      })();
     </script>
   </body>
 </html>
