@@ -385,6 +385,14 @@
         line-height: 1.625;
         color: rgba(10, 26, 79, 0.7);
       }
+      .p {
+        margin: 1.5rem 0 0;
+        max-width: 42rem;
+        font-weight: 700;
+        font-size: 1.125rem;
+        line-height: 1.625;
+        color: rgba(10, 26, 79, 0.7);
+      }
       @media (min-width: 640px) {
         .hero-sub {
           font-size: 1.5rem;
@@ -702,6 +710,119 @@
         .tools-dots {
           display: none;
         }
+      }
+      /* ================= Embed presentation slider ================= */
+      .embed-slider {
+        margin: 2rem auto 0;
+        width: 100%;
+        max-width: 64rem;
+      }
+      .embed-slide {
+        min-width: 85%;
+        flex-shrink: 0;
+        aspect-ratio: 16 / 9;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+      }
+      .embed-slide iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      @media (min-width: 640px) {
+        .embed-slide {
+          min-width: 100%;
+        }
+      }
+      .embed-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+      }
+      .embed-arrow {
+        display: grid;
+        place-items: center;
+        width: 2rem;
+        height: 2rem;
+        border: 0;
+        border-radius: 9999px;
+        background: rgba(10, 26, 79, 0.08);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .embed-arrow:hover {
+        background: rgba(10, 69, 255, 0.15);
+      }
+      .embed-arrow svg {
+        width: 1rem;
+        height: 1rem;
+        color: #0a1a4f;
+      }
+      .embed-doc {
+        margin: 2rem auto 0;
+        width: 100%;
+        max-width: 48rem;
+        aspect-ratio: 3 / 4;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+      }
+      .embed-doc iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      .doc-slider {
+        margin: 2rem auto 0;
+        width: 100%;
+        max-width: 48rem;
+      }
+      .doc-slide {
+        min-width: 85%;
+        flex-shrink: 0;
+        aspect-ratio: 3 / 4;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+      }
+      .doc-slide iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      @media (min-width: 640px) {
+        .doc-slide {
+          min-width: 100%;
+        }
+      }
+      .video-wrap {
+        margin: 2rem auto 0;
+        width: 100%;
+        max-width: 48rem;
+        aspect-ratio: 16 / 9;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+      }
+      .video-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
       }
       /* ================= Galeri riview (flexbox mosaic) ================= */
       .reviews {
@@ -1215,9 +1336,7 @@
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <a
-              class="btn-pill btn-pill-secondary"
-              data-scroll-to="tools-list"
+            <a class="btn-pill btn-pill-secondary" data-scroll-to="tools-list"
               >Lihat Tools</a
             >
           </div>
@@ -1315,6 +1434,169 @@
               role="group"
               aria-label="Penanda slide Tools"
             ></div>
+          </div>
+        </section>
+        <!-- SECTION: Embed Presentation -->
+        <section class="section">
+          <h2 class="section-title">
+            Contoh hasil Nyata Presentation Builder <br />
+            <p class="p">Lebih terstruktur dengan Tools</p>
+          </h2>
+          <div class="embed-slider slider" data-slider data-label="Presentasi">
+            <div class="slider-track" data-slider-track>
+              <div class="embed-slide">
+                <iframe
+                  src="https://docs.google.com/presentation/d/1gFfLEy2f8V0q1u03gtqIecdVfZpKKBP2j91HDHq16jU/embed"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <div class="embed-slide">
+                <iframe
+                  src="https://docs.google.com/presentation/d/1FGMJVcYmyOh28wZQAqCecqXm4S76bUm3r1xTsVwP8F0/embed"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+            <div class="embed-nav">
+              <button class="embed-arrow embed-prev" aria-label="Sebelumnya">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  width="20"
+                  height="20"
+                >
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <div
+                class="slider-dots"
+                data-slider-dots
+                role="group"
+                aria-label="Penanda slide Presentasi"
+              ></div>
+              <button class="embed-arrow embed-next" aria-label="Selanjutnya">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  width="20"
+                  height="20"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION: Embed Prompt Generator -->
+        <section class="section">
+          <h2 class="section-title">
+            Contoh Output Prompt Generator <br />
+            <p class="p">(case Penawaran Jasa & Script Video)</p>
+          </h2>
+          <div
+            class="doc-slider slider"
+            data-slider
+            data-label="Prompt Generator"
+          >
+            <div class="slider-track" data-slider-track>
+              <div class="doc-slide">
+                <iframe
+                  src="https://docs.google.com/document/d/1qsPhm6zjCRF2nzGIXL8mB2tMQ6daT7LMZVmoDOLufgM/preview"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <div class="doc-slide">
+                <iframe
+                  src="https://docs.google.com/document/d/1Hz90IYENrPxsmedR2giGjcfH_26byOeH5GlIMzui3vc/preview"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+            <div class="embed-nav">
+              <button class="embed-arrow embed-prev" aria-label="Sebelumnya">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  width="20"
+                  height="20"
+                >
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <div
+                class="slider-dots"
+                data-slider-dots
+                role="group"
+                aria-label="Penanda slide Prompt Generator"
+              ></div>
+              <button class="embed-arrow embed-next" aria-label="Selanjutnya">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  width="20"
+                  height="20"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+        <!-- SECTION: Embed Video -->
+        <section class="section">
+          <h2 class="section-title">
+            hasil prompt yang di generate dengan tools
+          </h2>
+          <div
+            style="
+              position: relative;
+              padding-bottom: 56.25%;
+              height: 0;
+              border-radius: 1rem;
+              overflow: hidden;
+              max-width: 48rem;
+              margin: 2rem auto 0;
+              box-shadow:
+                0 0 0 1px rgba(10, 69, 255, 0.1),
+                0 20px 25px -5px rgba(30, 58, 138, 0.1),
+                0 8px 10px -6px rgba(30, 58, 138, 0.1);
+            "
+          >
+            <iframe
+              id="js_video_iframe"
+              src="https://jumpshare.com/embed/Bw0S7aLlBvkkX6zQO9yV"
+              frameborder="0"
+              webkitallowfullscreen
+              mozallowfullscreen
+              allowfullscreen
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+              "
+            ></iframe>
           </div>
         </section>
         <!-- SECTION: Bukti & kredibilitas -->
@@ -1876,6 +2158,22 @@
             });
         }
       })();
+
+      /* ===== Embed slider arrow navigation ===== */
+      document
+        .querySelectorAll(".embed-slider, .doc-slider")
+        .forEach(function (slider) {
+          var track = slider.querySelector("[data-slider-track]");
+          var prev = slider.querySelector(".embed-prev");
+          var next = slider.querySelector(".embed-next");
+          if (!track || !prev || !next) return;
+          prev.addEventListener("click", function () {
+            track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+          });
+          next.addEventListener("click", function () {
+            track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+          });
+        });
     </script>
   </body>
 </html>
