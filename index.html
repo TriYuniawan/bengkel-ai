@@ -1,0 +1,1661 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bengkel AI - Produk Digital</title>
+    <meta
+      name="description"
+      content="Landing page sederhana untuk membeli produk digital lewat WhatsApp. Pilih produk, klik tombol WhatsApp, lalu selesaikan pembelian."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ================= Base ================= */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-padding-top: 5.5rem;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #fff7eb;
+        color: #171717;
+        font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      img {
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid #0a45ff;
+        outline-offset: 2px;
+      }
+      .page {
+        position: relative;
+        min-height: 100vh;
+        color: #0a1a4f;
+      }
+
+      /* ================= Background bergerak ================= */
+      @keyframes bk-drift-a {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(12vw, 8vh) scale(1.15);
+        }
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+      }
+      @keyframes bk-drift-b {
+        0% {
+          transform: translate(0, 0) scale(1.1);
+        }
+        50% {
+          transform: translate(-10vw, -10vh) scale(0.95);
+        }
+        100% {
+          transform: translate(0, 0) scale(1.1);
+        }
+      }
+      @keyframes bk-drift-c {
+        0% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(6vw, -12vh);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+      @keyframes bk-float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-28px) rotate(12deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+      }
+      @keyframes bk-grid {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 56px 56px;
+        }
+      }
+      .bg-layer {
+        position: fixed;
+        inset: 0;
+        z-index: -10;
+        overflow: hidden;
+        pointer-events: none;
+        background: #f4f8ff;
+      }
+      .bk-blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(80px);
+        opacity: 0.55;
+        will-change: transform;
+      }
+      .bk-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(10, 69, 255, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(10, 69, 255, 0.07) 1px, transparent 1px);
+        background-size: 56px 56px;
+        animation: bk-grid 18s linear infinite;
+        -webkit-mask-image: radial-gradient(
+          ellipse at 50% 30%,
+          #000 20%,
+          transparent 75%
+        );
+        mask-image: radial-gradient(
+          ellipse at 50% 30%,
+          #000 20%,
+          transparent 75%
+        );
+      }
+      .bk-sq {
+        position: absolute;
+        border-radius: 6px;
+        will-change: transform;
+        animation: bk-float 9s ease-in-out infinite;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bk-blob,
+        .bk-grid,
+        .bk-sq {
+          animation: none !important;
+        }
+      }
+      /* ================= Navbar ================= */
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        top: 1rem;
+        z-index: 50;
+        padding: 0 1rem;
+        pointer-events: none;
+      }
+      @media (min-width: 640px) {
+        .site-header {
+          padding: 0 2rem;
+        }
+      }
+      .site-nav {
+        pointer-events: auto;
+        margin: 0 auto;
+        display: flex;
+        height: 3.5rem;
+        width: 100%;
+        max-width: 96rem;
+        align-items: center;
+        justify-content: space-evenly;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow:
+          0 10px 15px -3px rgba(15, 23, 42, 0.05),
+          0 4px 6px -4px rgba(15, 23, 42, 0.05);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+      }
+      .nav-logo {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        border-radius: 0.375rem;
+      }
+      .nav-logo img {
+        height: 2rem;
+        width: auto;
+      }
+      .nav-links {
+        display: none;
+        align-items: center;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+        }
+      }
+      .nav-links a {
+        border-radius: 0.125rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 600;
+        color: #1e293b;
+        text-decoration: none;
+      }
+      .nav-links a:hover {
+        color: #020617;
+      }
+      .wa-btn {
+        display: grid;
+        place-items: center;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: 9999px;
+        background: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: background 0.15s;
+      }
+      .wa-btn:hover {
+        background: #ecfdf5;
+      }
+      .wa-btn img {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+      .wa-btn .wa-text {
+        display: none;
+      }
+      @media (min-width: 768px) {
+        .wa-btn {
+          height: auto;
+          width: auto;
+          background: #6ee7b7;
+          padding: 0.625rem 1.25rem;
+          box-shadow: none;
+        }
+        .wa-btn:hover {
+          background: #34d399;
+        }
+        .wa-btn img {
+          display: none;
+        }
+        .wa-btn .wa-text {
+          display: inline;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          font-weight: 600;
+          color: #022c22;
+        }
+      }
+
+      /* ================= Hero ================= */
+      .hero {
+        margin: 0 auto;
+        display: flex;
+        max-width: 64rem;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: clip;
+        padding: 8rem 1.25rem 5rem;
+        text-align: center;
+      }
+      @media (min-width: 640px) {
+        .hero {
+          padding-top: 10rem;
+        }
+      }
+      .hero h1 {
+        margin: 0;
+        max-width: 56rem;
+        text-wrap: balance;
+        font-size: 2.25rem;
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+      }
+      @media (min-width: 640px) {
+        .hero h1 {
+          font-size: 3rem;
+        }
+      }
+      @media (min-width: 1024px) {
+        .hero h1 {
+          font-size: 3.75rem;
+        }
+      }
+      .grad-text {
+        background-image: linear-gradient(
+          90deg,
+          #22d3d6 0%,
+          #2585e8 50%,
+          #7438e8 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero-sub {
+        margin: 1.5rem 0 0;
+        max-width: 42rem;
+        font-weight: 700;
+        font-size: 1.125rem;
+        line-height: 1.625;
+        color: rgba(10, 26, 79, 0.7);
+      }
+      @media (min-width: 640px) {
+        .hero-sub {
+          font-size: 1.5rem;
+          line-height: 1.625;
+        }
+      }
+      .hero-cta {
+        margin-top: 2.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      @media (min-width: 640px) {
+        .hero-cta {
+          flex-direction: row;
+        }
+      }
+      .btn-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border-radius: 9999px;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition:
+          background 0.15s,
+          filter 0.15s,
+          box-shadow 0.15s;
+      }
+      .btn-pill-primary {
+        color: #fff;
+        background-image: linear-gradient(to right, #0a84ff, #0a45ff);
+        box-shadow:
+          0 20px 25px -5px rgba(37, 99, 235, 0.3),
+          0 8px 10px -6px rgba(37, 99, 235, 0.3);
+      }
+      .btn-pill-primary:hover {
+        filter: brightness(1.1);
+        box-shadow:
+          0 20px 25px -5px rgba(37, 99, 235, 0.5),
+          0 8px 10px -6px rgba(37, 99, 235, 0.5);
+      }
+      .btn-pill-secondary {
+        color: #0a1a4f;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 0 1px rgba(10, 26, 79, 0.15);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+      .btn-pill-secondary:hover {
+        background: #fff;
+        box-shadow: 0 0 0 1px rgba(10, 26, 79, 0.3);
+      }
+      .hero-note {
+        margin: 1.5rem 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: rgba(10, 26, 79, 0.6);
+      }
+      .hero-note .note-dot {
+        height: 0.5rem;
+        width: 0.5rem;
+        border-radius: 9999px;
+        background: #34d399;
+      }
+      /* ================= Section umum ================= */
+      .section {
+        margin: 0 auto;
+        max-width: 72rem;
+        padding: 5rem 1.25rem;
+      }
+      .section-title,
+      .h2-between {
+        margin: 0 auto;
+        max-width: 42rem;
+        text-wrap: balance;
+        text-align: center;
+        font-size: 1.875rem;
+        font-weight: 800;
+        line-height: 2.25rem;
+        letter-spacing: -0.025em;
+      }
+      @media (min-width: 640px) {
+        .section-title,
+        .h2-between {
+          font-size: 2.25rem;
+          line-height: 2.5rem;
+        }
+      }
+      .h2-between {
+        padding: 0 1.25rem;
+      }
+
+      /* ================= Slider (dots + drag) ================= */
+      .slider-track {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        padding: 1rem 0;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        cursor: grab;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .slider-track::-webkit-scrollbar {
+        display: none;
+      }
+      .slider-track > * {
+        scroll-snap-align: center;
+      }
+      .slider-track.dragging {
+        cursor: grabbing;
+        user-select: none;
+      }
+      .slider-dots {
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+      }
+      .slider-dot {
+        display: grid;
+        place-items: center;
+        height: 2rem;
+        width: 2rem;
+        padding: 0;
+        border: 0;
+        border-radius: 9999px;
+        background: none;
+        cursor: pointer;
+      }
+      .slider-dot .dot {
+        height: 0.5rem;
+        width: 0.5rem;
+        border-radius: 9999px;
+        background: rgba(10, 26, 79, 0.25);
+        transition: all 0.3s;
+      }
+      .slider-dot:hover .dot {
+        background: rgba(10, 26, 79, 0.45);
+      }
+      .slider-dot.active .dot {
+        width: 1.5rem;
+        background: #0a45ff;
+      }
+      .slider.dark .slider-dot .dot {
+        background: rgba(255, 255, 255, 0.35);
+      }
+      .slider.dark .slider-dot:hover .dot {
+        background: rgba(255, 255, 255, 0.6);
+      }
+      .slider.dark .slider-dot.active .dot {
+        background: #fff;
+      }
+
+      /* ================= Card tools ================= */
+      .tools-wrap {
+        margin: 2rem auto 0;
+        width: 100%;
+        max-width: 56rem;
+      }
+      .tool-card {
+        position: relative;
+        display: flex;
+        flex-shrink: 0;
+        width: 85%;
+        flex-direction: column;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .tool-card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.4),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+      }
+      .tool-badge {
+        position: absolute;
+        right: 1.25rem;
+        top: 1.25rem;
+        border-radius: 0.375rem;
+        background: #ff9410;
+        padding: 0.25rem 0.625rem;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        font-weight: 700;
+        color: #0a1a4f;
+      }
+      .tool-card img.tool-img {
+        margin-bottom: 1.25rem;
+        height: auto;
+        width: 100%;
+        border-radius: 0.75rem;
+        box-shadow: 0 0 0 1px rgba(10, 69, 255, 0.1);
+      }
+      .tool-card h3 {
+        margin: 0;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 700;
+      }
+      .tool-desc {
+        margin: 0.5rem 0 0;
+        flex: 1 1 0%;
+        font-size: 15px;
+        line-height: 1.625;
+        color: rgba(10, 26, 79, 0.75);
+      }
+      .tool-price {
+        margin: 1.25rem 0 0;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 800;
+      }
+      .btn-buy {
+        margin-top: 1rem;
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1.5rem;
+        padding: 0.875rem 1.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 600;
+        color: #fff;
+        text-decoration: none;
+        background-image: linear-gradient(to right, #0a84ff, #0a45ff);
+        box-shadow:
+          0 10px 15px -3px rgba(37, 99, 235, 0.3),
+          0 4px 6px -4px rgba(37, 99, 235, 0.3);
+        transition:
+          filter 0.15s,
+          box-shadow 0.15s;
+      }
+      .btn-buy:hover {
+        filter: brightness(1.1);
+        box-shadow:
+          0 10px 15px -3px rgba(37, 99, 235, 0.5),
+          0 4px 6px -4px rgba(37, 99, 235, 0.5);
+      }
+      @media (min-width: 640px) {
+        .tools-track {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          scroll-snap-type: none;
+          overflow: visible;
+          cursor: auto;
+        }
+        .tool-card {
+          width: auto;
+        }
+        .tools-dots {
+          display: none;
+        }
+      }
+      /* ================= Galeri riview (flexbox mosaic) ================= */
+      .reviews {
+        margin-top: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .review-row {
+        display: flex;
+        gap: 0.5rem;
+      }
+      @media (min-width: 768px) {
+        .reviews {
+          gap: 0.75rem;
+        }
+        .review-row {
+          gap: 0.75rem;
+        }
+      }
+      .review-tile {
+        min-width: 0;
+        overflow: hidden;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .review-tile:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.4),
+          0 20px 25px -5px rgba(30, 58, 138, 0.1),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+      }
+      .review-tile img {
+        display: block;
+        height: auto;
+        width: 100%;
+      }
+
+      /* ================= Kredibilitas (box gelap) ================= */
+      .cred-box {
+        margin-top: 2rem;
+        border-radius: 1.5rem;
+        background: #0a1a4f;
+        padding: 1.5rem;
+        color: #fff;
+      }
+      @media (min-width: 640px) {
+        .cred-box {
+          padding: 2rem;
+        }
+      }
+      .cred-card {
+        display: flex;
+        aspect-ratio: 3 / 4;
+        width: 75%;
+        flex-shrink: 0;
+        align-self: flex-start;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1.25rem;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+        transition:
+          transform 0.3s,
+          background 0.3s,
+          box-shadow 0.3s;
+      }
+      .cred-card:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+      }
+      .cred-icon {
+        display: grid;
+        place-items: center;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 0.75rem;
+        color: #fff;
+        background-image: linear-gradient(to bottom right, #0a84ff, #0a45ff);
+        transition: transform 0.3s;
+      }
+      .cred-card:hover .cred-icon {
+        transform: scale(1.1);
+      }
+      .cred-card h3 {
+        margin: 1.25rem 0 0;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        font-weight: 700;
+      }
+      .cred-text {
+        margin: 0.5rem 0 0;
+        font-size: 0.875rem;
+        line-height: 1.625;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .cred-foot {
+        margin-top: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 1rem;
+      }
+      .cred-foot p {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.625;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .cred-foot strong {
+        font-weight: 600;
+        color: #fff;
+      }
+      .cred-hint {
+        margin: 0.75rem 0 0;
+        text-align: center;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      @media (min-width: 640px) {
+        .cred-card {
+          width: 45%;
+          padding: 1.5rem;
+        }
+        .cred-card h3 {
+          font-size: 1.25rem;
+          line-height: 1.75rem;
+        }
+        .cred-text,
+        .cred-foot p {
+          font-size: 15px;
+        }
+      }
+      @media (min-width: 768px) {
+        .cred-card {
+          width: 34%;
+        }
+      }
+      /* ================= Output & konsultasi ================= */
+      .output-grid {
+        display: grid;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      @media (min-width: 1024px) {
+        .output-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      .output-title {
+        margin: 0;
+        text-wrap: balance;
+        text-align: center;
+        font-size: 1.875rem;
+        font-weight: 800;
+        line-height: 2.25rem;
+        letter-spacing: -0.025em;
+      }
+      @media (min-width: 640px) {
+        .output-title {
+          font-size: 2.25rem;
+          line-height: 2.5rem;
+        }
+      }
+      .output-list {
+        margin: 2rem 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .output-list li {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.75rem;
+        text-align: center;
+        font-size: 1.125rem;
+        line-height: 1.375;
+      }
+      .output-list .marker {
+        margin-top: 0.5rem;
+        height: 0.75rem;
+        width: 0.75rem;
+        flex-shrink: 0;
+        border-radius: 3px;
+        background-image: linear-gradient(to bottom right, #0a84ff, #0a45ff);
+      }
+      .cta-card {
+        border-radius: 1.5rem;
+        padding: 2rem;
+        text-align: center;
+        color: #fff;
+        background-image: linear-gradient(to bottom right, #0a84ff, #0a45ff);
+        box-shadow: 0 25px 50px -12px rgba(29, 78, 216, 0.3);
+      }
+      @media (min-width: 640px) {
+        .cta-card {
+          padding: 2.5rem;
+        }
+      }
+      .cta-card h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 1.375;
+        font-weight: 800;
+      }
+      @media (min-width: 640px) {
+        .cta-card h3 {
+          font-size: 1.875rem;
+          line-height: 2.25rem;
+        }
+      }
+      .cta-card p {
+        margin: 1rem 0 0;
+        line-height: 1.625;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .btn-cta-white {
+        margin-top: 1.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.75rem;
+        padding: 0.875rem 1.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 700;
+        color: #0a1a4f;
+        text-decoration: none;
+        background: #fff;
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        transition: background 0.15s;
+      }
+      .btn-cta-white:hover {
+        background: #fff3e0;
+      }
+      .btn-cta-white:focus-visible {
+        outline-color: #fff;
+      }
+
+      /* ================= FAQ ================= */
+      .faq-wrap {
+        margin: 0 auto;
+        max-width: 48rem;
+      }
+      .faq-list {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .faq-item {
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 1.25rem 1.5rem;
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.1),
+          0 10px 15px -3px rgba(30, 58, 138, 0.05),
+          0 4px 6px -4px rgba(30, 58, 138, 0.05);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+      .faq-item[open] {
+        box-shadow:
+          0 0 0 1px rgba(10, 69, 255, 0.3),
+          0 10px 15px -3px rgba(30, 58, 138, 0.05),
+          0 4px 6px -4px rgba(30, 58, 138, 0.05);
+      }
+      .faq-item summary {
+        display: flex;
+        cursor: pointer;
+        list-style: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        font-weight: 600;
+      }
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-item summary .q {
+        flex: 1 1 0%;
+        text-align: center;
+      }
+      .faq-icon {
+        display: grid;
+        place-items: center;
+        height: 1.75rem;
+        width: 1.75rem;
+        flex-shrink: 0;
+        border-radius: 9999px;
+        color: #fff;
+        background-image: linear-gradient(to bottom right, #0a84ff, #0a45ff);
+        transition: transform 0.2s;
+      }
+      .faq-item[open] .faq-icon {
+        transform: rotate(45deg);
+      }
+      .faq-item .answer {
+        margin: 1rem 0 0;
+        text-align: center;
+        line-height: 1.625;
+        color: rgba(10, 26, 79, 0.75);
+      }
+
+      /* ================= Footer ================= */
+      .site-footer {
+        padding: 0 1.25rem 2.5rem;
+        text-align: center;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: rgba(10, 26, 79, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Background bergerak -->
+      <div class="bg-layer" aria-hidden="true">
+        <div
+          class="bk-blob"
+          style="
+            width: 46vw;
+            height: 46vw;
+            top: -12vw;
+            left: -10vw;
+            background: #0a84ff;
+            animation: bk-drift-a 22s ease-in-out infinite;
+          "
+        ></div>
+        <div
+          class="bk-blob"
+          style="
+            width: 40vw;
+            height: 40vw;
+            top: 18vh;
+            right: -12vw;
+            background: #0a45ff;
+            opacity: 0.4;
+            animation: bk-drift-b 26s ease-in-out infinite;
+          "
+        ></div>
+        <div
+          class="bk-blob"
+          style="
+            width: 28vw;
+            height: 28vw;
+            bottom: -8vw;
+            left: 30vw;
+            background: #ff9410;
+            opacity: 0.22;
+            animation: bk-drift-c 30s ease-in-out infinite;
+          "
+        ></div>
+        <div class="bk-grid"></div>
+        <span
+          class="bk-sq"
+          style="
+            width: 22px;
+            height: 22px;
+            top: 14%;
+            left: 12%;
+            background: #ff9410;
+            animation-delay: 0s;
+          "
+        ></span>
+        <span
+          class="bk-sq"
+          style="
+            width: 16px;
+            height: 16px;
+            top: 26%;
+            right: 14%;
+            background: #0a45ff;
+            animation-delay: -3s;
+          "
+        ></span>
+        <span
+          class="bk-sq"
+          style="
+            width: 30px;
+            height: 30px;
+            top: 62%;
+            left: 7%;
+            background: #0a84ff;
+            opacity: 0.7;
+            animation-delay: -5s;
+          "
+        ></span>
+        <span
+          class="bk-sq"
+          style="
+            width: 14px;
+            height: 14px;
+            top: 78%;
+            right: 10%;
+            background: #ff9410;
+            animation-delay: -2s;
+          "
+        ></span>
+        <span
+          class="bk-sq"
+          style="
+            width: 24px;
+            height: 24px;
+            top: 46%;
+            right: 6%;
+            background: #0a45ff;
+            opacity: 0.6;
+            animation-delay: -7s;
+          "
+        ></span>
+      </div>
+
+      <!-- Navbar -->
+      <header class="site-header">
+        <nav aria-label="Navigasi utama" class="site-nav">
+          <a href="#" class="nav-logo">
+            <img
+              src="logo.png"
+              alt="Logo Bengkel AI"
+              width="2172"
+              height="724"
+            />
+          </a>
+          <ul class="nav-links">
+            <li><a href="#produk">Produk</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#testimoni">Testimoni</a></li>
+          </ul>
+          <a
+            class="wa-btn"
+            href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20tanya%20soal%20produk"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="Contact"
+            data-track-name="Navbar"
+          >
+            <img src="wa.png" alt="WhatsApp" width="24" height="24" />
+            <span class="wa-text">WhatsApp</span>
+          </a>
+        </nav>
+      </header>
+      <main>
+        <!-- SECTION 1: Hero -->
+        <section id="hero" class="hero">
+          <h1>
+            Tools AI yang <span class="grad-text">Bisa Dingertiin</span> untuk
+            Meningkatkan Hasil Kerja Kamu
+          </h1>
+          <p class="hero-sub">
+            Bengkel AI bantu kamu menyusun prompt yang tepat lewat tools yang
+            langsung bisa dipakai hasil AI lebih jelas dan konsisten, tanpa
+            buang waktu coba-coba.
+          </p>
+          <div class="hero-cta">
+            <a
+              class="btn-pill btn-pill-primary"
+              href="https://wa.me/6285977154689?text=Halo%2C%20saya%20tertarik%20dengan%20tools%20Bengkel%20AI"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="Contact"
+              data-track-name="Hero"
+            >
+              Free Konsultasi
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="20"
+                height="20"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              class="btn-pill btn-pill-secondary"
+              href="#tools"
+              data-track="ViewContent"
+              data-track-name="Section Tools"
+              >Lihat Tools</a
+            >
+          </div>
+        </section>
+
+        <!-- SECTION: Card tools -->
+        <section id="tools" class="section">
+          <h2 class="section-title">
+            Pilih tools yang paling dekat dengan masalahmu
+          </h2>
+          <div class="tools-wrap slider" data-slider data-label="Tools">
+            <div class="slider-track tools-track" data-slider-track>
+              <article class="tool-card">
+                <span class="tool-badge">Terlaris</span>
+                <img
+                  class="tool-img"
+                  src="playground_prompting.webp"
+                  alt="Preview tool Live Shopping"
+                  width="1122"
+                  height="1402"
+                />
+                <h3>Prompt Generator</h3>
+                <p class="tool-desc">
+                  Bantu kamu buat Prompt yang lebih Bisa dingertiin AI
+                </p>
+                <p class="tool-price">Rp 49.000</p>
+                <a
+                  class="btn-buy"
+                  href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20order%20tools%20Playground%20Prompting.%20Bagaimana%20cara%20pembayarannya%3F"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="Contact"
+                  data-track-name="Prompt Generator"
+                  >Beli sekarang</a
+                >
+              </article>
+              <article class="tool-card">
+                <img
+                  class="tool-img"
+                  src="slide.webp"
+                  alt="Preview tool Playground Prompting"
+                  width="1240"
+                  height="1268"
+                />
+                <h3>Presentation builder</h3>
+                <p class="tool-desc">
+                  Bantu kamu ngerjain Slide Presentasi ketika mepet Deadline!
+                </p>
+                <p class="tool-price">Rp 49.000</p>
+                <a
+                  class="btn-buy"
+                  href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20order%20tools%20Presentation%20Builder.%20Bagaimana%20cara%20pembayarannya%3F"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="Contact"
+                  data-track-name="Presentation builder"
+                  >Beli sekarang</a
+                >
+              </article>
+            </div>
+            <div
+              class="slider-dots tools-dots"
+              data-slider-dots
+              role="group"
+              aria-label="Penanda slide Tools"
+            ></div>
+          </div>
+        </section>
+        <!-- SECTION: Bukti & kredibilitas -->
+        <section id="bukti" class="section">
+          <h2 class="section-title">
+            Mereka sudah pakai, dan kamu tidak akan jalan sendirian
+          </h2>
+          <div class="reviews">
+            <div class="review-row">
+              <div
+                class="review-tile"
+                style="flex-grow: 1.4733242134062927; flex-basis: 0"
+              >
+                <img
+                  src="riview2.webp"
+                  alt="Screenshot riview pembeli 2"
+                  width="1077"
+                  height="731"
+                />
+              </div>
+              <div
+                class="review-tile"
+                style="flex-grow: 1.4555256064690028; flex-basis: 0"
+              >
+                <img
+                  src="riview3.webp"
+                  alt="Screenshot riview pembeli 3"
+                  width="1080"
+                  height="742"
+                />
+              </div>
+            </div>
+            <div class="review-row">
+              <div
+                class="review-tile"
+                style="flex-grow: 2.640586797066015; flex-basis: 0"
+              >
+                <img
+                  src="riview1.webp"
+                  alt="Screenshot riview pembeli 1"
+                  width="1080"
+                  height="409"
+                />
+              </div>
+              <div
+                class="review-tile"
+                style="flex-grow: 2.640586797066015; flex-basis: 0"
+              >
+                <img
+                  src="riview4.webp"
+                  alt="Screenshot riview pembeli 4"
+                  width="1080"
+                  height="409"
+                />
+              </div>
+            </div>
+            <div class="review-row">
+              <div
+                class="review-tile"
+                style="flex-grow: 4.864864864864865; flex-basis: 0"
+              >
+                <img
+                  src="riview5.webp"
+                  alt="Screenshot riview pembeli 5"
+                  width="1080"
+                  height="222"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        <h2 class="h2-between">Tools siap pakai, plus tim yang siap bantu</h2>
+
+        <!-- section slide -->
+        <section id="bukti" class="section">
+          <div class="cred-box">
+            <div class="slider dark" data-slider data-label="Kredibilitas">
+              <div class="slider-track" data-slider-track>
+                <div class="cred-card">
+                  <div class="cred-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      width="24"
+                      height="24"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="6" width="13" height="12" rx="2" />
+                      <path d="M22 8l-7 4 7 4V8z" />
+                    </svg>
+                  </div>
+                  <h3>Sesi 1 on 1 saat ada kendala</h3>
+                  <p class="cred-text">
+                    Kalau kamu mentok saat memakai tools, kita selesaikan bareng
+                    lewat sesi 1 on 1.
+                  </p>
+                  <div class="cred-foot">
+                    <p>
+                      <strong>Cocok untuk:</strong> yang mau mulai pakai AI tapi
+                      butuh pendampingan.
+                    </p>
+                  </div>
+                </div>
+                <div class="cred-card">
+                  <div class="cred-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      width="24"
+                      height="24"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 12l10 5 10-5" />
+                      <path d="M2 17l10 5 10-5" />
+                    </svg>
+                  </div>
+                  <h3>Dibuat dari kebutuhan nyata</h3>
+                  <p class="cred-text">
+                    Tools dibangun dari pekerjaan yang benar-benar dijalankan,
+                    bukan sekadar demo.
+                  </p>
+                  <div class="cred-foot">
+                    <p>
+                      <strong>Cocok untuk:</strong> yang ingin tools yang
+                      langsung kepakai.
+                    </p>
+                  </div>
+                </div>
+                <div class="cred-card">
+                  <div class="cred-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      width="24"
+                      height="24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                      />
+                    </svg>
+                  </div>
+                  <h3>Bisa ditanya langsung</h3>
+                  <p class="cred-text">
+                    Pertanyaan sebelum dan sesudah beli dijawab langsung lewat
+                    WhatsApp.
+                  </p>
+                  <div class="cred-foot">
+                    <p>
+                      <strong>Cocok untuk:</strong> yang mau jelas dulu sebelum
+                      memutuskan.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="slider-dots"
+                data-slider-dots
+                role="group"
+                aria-label="Penanda slide Kredibilitas"
+              ></div>
+            </div>
+            <p class="cred-hint">Geser untuk lihat semua →</p>
+          </div>
+        </section>
+        <!-- SECTION: Output & gratis konsultasi -->
+        <section id="output" class="section" style="padding: 5rem 1.25rem 6rem">
+          <div class="output-grid">
+            <div>
+              <h2 class="output-title">
+                Yang kamu dapat setelah memakai tools ini
+              </h2>
+              <ul class="output-list">
+                <li>
+                  <span class="marker" aria-hidden="true"></span>Hasil siap
+                  pakai yang bisa langsung kamu jalankan
+                </li>
+                <li>
+                  <span class="marker" aria-hidden="true"></span>Alur kerja yang
+                  lebih singkat dibanding cara manual
+                </li>
+                <li>
+                  <span class="marker" aria-hidden="true"></span>Format keluaran
+                  yang rapi dan mudah disesuaikan
+                </li>
+                <li>
+                  <span class="marker" aria-hidden="true"></span>Panduan
+                  pemakaian supaya tidak bingung di awal
+                </li>
+              </ul>
+            </div>
+            <div class="cta-card">
+              <h3>Masih ragu tools mana yang cocok? Konsultasi gratis dulu.</h3>
+              <p>
+                Ceritakan kebutuhanmu, nanti dibantu pilih tools yang pas dan
+                dijelaskan cara memakainya.
+              </p>
+              <a
+                class="btn-cta-white"
+                href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20konsultasi%20gratis%20soal%20tools%20Bengkel%20AI"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="Contact"
+                data-track-name="Konsultasi Gratis"
+                >Konsultasi gratis via WhatsApp</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION: FAQ -->
+        <section id="faq" class="section">
+          <div class="faq-wrap">
+            <h2 class="section-title">Pertanyaan yang sering ditanyakan</h2>
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>
+                  <span class="q"
+                    >Bagaimana cara mendapatkan tools setelah membeli?</span
+                  >
+                  <span class="faq-icon" aria-hidden="true"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M12 5v14M5 12h14" /></svg
+                  ></span>
+                </summary>
+                <p class="answer">
+                  Setelah pembayaran dikonfirmasi, tools langsung dikirim ke
+                  WhatsApp atau emailmu, lengkap dengan panduan cara memakainya.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>
+                  <span class="q"
+                    >Apakah perlu bisa coding atau paham AI untuk
+                    memakainya?</span
+                  >
+                  <span class="faq-icon" aria-hidden="true"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M12 5v14M5 12h14" /></svg
+                  ></span>
+                </summary>
+                <p class="answer">
+                  Tidak. Tools dibuat supaya langsung bisa dipakai — cukup ikuti
+                  panduan singkat yang disediakan. Kalau ada kendala, ada sesi 1
+                  on 1.
+                </p>
+              </details>
+              <details class="faq-item">
+                <summary>
+                  <span class="q"
+                    >Kalau ada pertanyaan atau kendala setelah beli
+                    bagaimana?</span
+                  >
+                  <span class="faq-icon" aria-hidden="true"
+                    ><svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      width="16"
+                      height="16"
+                    >
+                      <path d="M12 5v14M5 12h14" /></svg
+                  ></span>
+                </summary>
+                <p class="answer">
+                  Pertanyaan sebelum dan sesudah beli dijawab langsung lewat
+                  WhatsApp, dan kendala yang lebih rumit dibahas tuntas lewat
+                  sesi 1 on 1.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        © <span id="year">2026</span> Bengkel AI
+      </footer>
+    </div>
+    <script>
+      /* ===== Meta Pixel (opsional) — isi ID di bawah; biarkan kosong untuk nonaktif ===== */
+      const META_PIXEL_ID = "";
+
+      function track(event, params) {
+        if (typeof window.fbq !== "function") return;
+        try {
+          if (params) window.fbq("track", event, params);
+          else window.fbq("track", event);
+        } catch (err) {
+          /* tracking tidak boleh mengganggu klik */
+        }
+      }
+
+      if (META_PIXEL_ID) {
+        (function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod
+              ? n.callMethod.apply(n, arguments)
+              : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = "2.0";
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(
+          window,
+          document,
+          "script",
+          "https://connect.facebook.net/en_US/fbevents.js",
+        );
+        window.fbq("init", META_PIXEL_ID);
+        window.fbq("track", "PageView");
+      }
+
+      /* ===== TrackedLink: kirim event saat link [data-track] diklik ===== */
+      document.addEventListener("click", function (e) {
+        const el = e.target.closest("[data-track]");
+        if (!el) return;
+        const params = el.dataset.trackName
+          ? { content_name: el.dataset.trackName }
+          : undefined;
+        track(el.dataset.track, params);
+      });
+
+      /* ===== Slider (port dari components/Slider.tsx): dots + drag manual ===== */
+      const DRAG_THRESHOLD = 8;
+
+      function initSlider(root) {
+        const trackEl = root.querySelector("[data-slider-track]");
+        const dotsEl = root.querySelector("[data-slider-dots]");
+        if (!trackEl || !dotsEl) return;
+
+        const label = root.dataset.label || "Slide";
+        const slides = Array.from(trackEl.children);
+        const count = slides.length;
+        const dots = [];
+        let active = 0;
+
+        slides.forEach(function (_, i) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "slider-dot";
+          btn.setAttribute("aria-label", label + " " + (i + 1));
+          btn.innerHTML = '<span class="dot"></span>';
+          btn.addEventListener("click", function () {
+            goTo(i);
+          });
+          dotsEl.appendChild(btn);
+          dots.push(btn);
+        });
+
+        function update() {
+          const maxScroll = trackEl.scrollWidth - trackEl.clientWidth;
+          let index = 0;
+          if (maxScroll > 1) {
+            index = Math.round((trackEl.scrollLeft / maxScroll) * (count - 1));
+            index = Math.min(Math.max(index, 0), count - 1);
+          }
+          dots[active].classList.remove("active");
+          dots[active].removeAttribute("aria-current");
+          active = index;
+          dots[active].classList.add("active");
+          dots[active].setAttribute("aria-current", "true");
+        }
+
+        function goTo(index) {
+          const target = slides[index];
+          if (!target) return;
+          const reduce = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+          const trackRect = trackEl.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+          trackEl.scrollBy({
+            left:
+              targetRect.left +
+              targetRect.width / 2 -
+              (trackRect.left + trackRect.width / 2),
+            behavior: reduce ? "auto" : "smooth",
+          });
+        }
+
+        trackEl.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+
+        /* Drag manual dengan mouse: capture baru diambil setelah melewati threshold
+     supaya klik biasa (mis. tombol "Beli sekarang") tetap berjalan normal. */
+        let drag = null;
+        let suppressClick = false;
+
+        trackEl.addEventListener("pointerdown", function (e) {
+          if (e.pointerType !== "mouse" || e.button !== 0) return;
+          if (trackEl.scrollWidth - trackEl.clientWidth <= 1) return;
+          drag = {
+            startX: e.clientX,
+            startScroll: trackEl.scrollLeft,
+            pointerId: e.pointerId,
+            started: false,
+          };
+          suppressClick = false;
+        });
+
+        trackEl.addEventListener("pointermove", function (e) {
+          if (!drag) return;
+          const dx = e.clientX - drag.startX;
+          if (!drag.started) {
+            if (Math.abs(dx) < DRAG_THRESHOLD) return;
+            drag.started = true;
+            trackEl.setPointerCapture(drag.pointerId);
+            trackEl.style.scrollSnapType = "none";
+            trackEl.classList.add("dragging");
+          }
+          trackEl.scrollLeft = drag.startScroll - dx;
+        });
+
+        function endDrag(e) {
+          if (!drag) return;
+          const wasDrag = drag.started;
+          drag = null;
+          if (!wasDrag) return;
+          trackEl.classList.remove("dragging");
+          trackEl.style.scrollSnapType = "";
+          if (trackEl.hasPointerCapture(e.pointerId))
+            trackEl.releasePointerCapture(e.pointerId);
+          suppressClick = true;
+          const maxScroll = trackEl.scrollWidth - trackEl.clientWidth;
+          if (maxScroll <= 1) return;
+          const index = Math.round(
+            (trackEl.scrollLeft / maxScroll) * (count - 1),
+          );
+          goTo(Math.min(Math.max(index, 0), count - 1));
+        }
+
+        trackEl.addEventListener("pointerup", endDrag);
+        trackEl.addEventListener("pointercancel", endDrag);
+        trackEl.addEventListener("dragstart", function (e) {
+          e.preventDefault();
+        });
+        trackEl.addEventListener(
+          "click",
+          function (e) {
+            if (!suppressClick) return;
+            suppressClick = false;
+            e.preventDefault();
+            e.stopPropagation();
+          },
+          true,
+        );
+      }
+
+      document.querySelectorAll("[data-slider]").forEach(initSlider);
+
+      /* ===== Tahun footer ===== */
+      document.getElementById("year").textContent = String(
+        new Date().getFullYear(),
+      );
+    </script>
+  </body>
+</html>
