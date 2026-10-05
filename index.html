@@ -1669,6 +1669,17 @@
         if (el.dataset.trackEvent) track(el.dataset.trackEvent, params);
       });
 
+      /* ===== Scroll manual "Lihat Tools" — hindari anchor navigation ===== */
+      (function () {
+        var btn = document.querySelector('a[href="#tools-list"]');
+        if (!btn) return;
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          var target = document.getElementById("tools-list");
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+        });
+      })();
+
       /* ===== Slider (port dari components/Slider.tsx): dots + drag manual ===== */
       const DRAG_THRESHOLD = 8;
 
