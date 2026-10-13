@@ -270,11 +270,43 @@
         box-shadow: 0 2px 8px rgba(10, 69, 255, 0.15);
       }
       .wa-btn {
+        display: none;
+      }
+      @media (min-width: 768px) {
+        .wa-btn {
+          display: grid;
+          place-items: center;
+          border-radius: 9999px;
+          background: #6ee7b7;
+          padding: 0.625rem 1.25rem;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          font-weight: 600;
+          color: #022c22;
+          text-decoration: none;
+          transition: background 0.15s;
+        }
+        .wa-btn:hover {
+          background: #34d399;
+        }
+      }
+
+      /* ================= Hamburger menu (mobile) ================= */
+      .site-nav,
+      .mobile-menu {
+        position: relative;
+        z-index: 1;
+      }
+      .nav-toggle {
+        position: relative;
         display: grid;
         place-items: center;
         height: 2.5rem;
         width: 3.5rem;
+        padding: 0;
+        border: 0;
         border-radius: 9999px;
+        cursor: pointer;
         background-image: linear-gradient(to right, #0a84ff, #0a45ff);
         box-shadow:
           0 4px 6px -1px rgba(37, 99, 235, 0.3),
@@ -283,51 +315,154 @@
           filter 0.15s,
           box-shadow 0.15s;
       }
-      .wa-btn:hover {
+      .nav-toggle:hover {
         filter: brightness(1.1);
+      }
+      .nav-toggle .bar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 2px;
+        width: 1.25rem;
+        margin: -1px 0 0 -0.625rem;
+        border-radius: 2px;
+        background: #fff;
+        transition:
+          transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+          opacity 0.2s;
+      }
+      .nav-toggle .bar:nth-child(1) {
+        transform: translateY(-6px);
+      }
+      .nav-toggle .bar:nth-child(3) {
+        transform: translateY(6px);
+      }
+      .menu-open .nav-toggle .bar:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      .menu-open .nav-toggle .bar:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .menu-open .nav-toggle .bar:nth-child(3) {
+        transform: rotate(-45deg);
+      }
+      .menu-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 26, 79, 0.25);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s,
+          visibility 0s linear 0.3s;
+      }
+      .menu-open .menu-backdrop {
+        pointer-events: auto;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s;
+      }
+      .mobile-menu {
+        margin-top: 0.75rem;
+        padding: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.9);
         box-shadow:
-          0 4px 6px -1px rgba(37, 99, 235, 0.5),
-          0 2px 4px -2px rgba(37, 99, 235, 0.5);
+          0 20px 25px -5px rgba(30, 58, 138, 0.15),
+          0 8px 10px -6px rgba(30, 58, 138, 0.1);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        transform-origin: top right;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px) scale(0.96);
+        transition:
+          opacity 0.25s ease,
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0.35s;
       }
-      .wa-btn img {
-        display: none;
+      .menu-open .mobile-menu {
+        pointer-events: auto;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition:
+          opacity 0.25s ease,
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .wa-btn .wa-arrow {
+      .mobile-menu ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .mobile-menu li {
+        opacity: 0;
+        transform: translateY(-8px);
+        transition:
+          opacity 0.25s,
+          transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .menu-open .mobile-menu li {
+        opacity: 1;
+        transform: none;
+        transition-delay: calc(80ms + var(--i, 0) * 50ms);
+      }
+      .mobile-menu li > a {
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        border-radius: 1rem;
+        padding: 0.875rem 1rem;
+        font-weight: 700;
+        color: #1e293b;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .mobile-menu li > a:hover,
+      .mobile-menu li > a.active {
+        background: rgba(10, 69, 255, 0.08);
+        color: #0a45ff;
+      }
+      .mobile-menu li > a svg {
+        height: 1rem;
+        width: 1rem;
+        opacity: 0.5;
+      }
+      .mobile-menu li > a.menu-wa {
+        margin-top: 0.5rem;
         justify-content: center;
+        gap: 0.5rem;
         color: #fff;
+        background-image: linear-gradient(to right, #0a84ff, #0a45ff);
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
       }
-      .wa-btn .wa-arrow svg {
-        height: 1.25rem;
-        width: 1.25rem;
-      }
-      .wa-btn .wa-text {
-        display: none;
+      .mobile-menu li > a.menu-wa:hover {
+        color: #fff;
+        filter: brightness(1.1);
       }
       @media (min-width: 768px) {
-        .wa-btn {
-          height: auto;
-          width: auto;
-          background: #6ee7b7;
-          padding: 0.625rem 1.25rem;
-          box-shadow: none;
-        }
-        .wa-btn:hover {
-          background: #34d399;
-        }
-        .wa-btn img {
+        .nav-toggle,
+        .mobile-menu,
+        .menu-backdrop {
           display: none;
         }
-        .wa-btn .wa-arrow {
-          display: none;
-        }
-        .wa-btn .wa-text {
-          display: inline;
-          font-size: 0.875rem;
-          line-height: 1.25rem;
-          font-weight: 600;
-          color: #022c22;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .nav-toggle .bar,
+        .menu-backdrop,
+        .mobile-menu,
+        .mobile-menu li {
+          transition: none !important;
         }
       }
 
@@ -852,6 +987,57 @@
         height: 100%;
         border: 0;
       }
+      /* ================= Tutorial (view #tutorial) ================= */
+      .tut-head {
+        padding-top: 8rem;
+        text-align: center;
+      }
+      @media (min-width: 640px) {
+        .tut-head {
+          padding-top: 10rem;
+        }
+      }
+      .tut-head h1 {
+        margin: 0;
+        font-size: 2.25rem;
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+      }
+      @media (min-width: 640px) {
+        .tut-head h1 {
+          font-size: 3rem;
+        }
+      }
+      .tut-head p {
+        margin: 1rem auto 0;
+        max-width: 36rem;
+        font-size: 1.125rem;
+        line-height: 1.625;
+        color: rgba(10, 26, 79, 0.7);
+      }
+      .tut-list {
+        margin: 0 auto;
+        max-width: 48rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+      .tut-item .video-wrap {
+        margin: 0;
+        background: #0a1a4f;
+      }
+      .tut-item h2 {
+        margin: 1.25rem 0 0;
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        font-weight: 700;
+      }
+      .tut-item p {
+        margin: 0.5rem 0 0;
+        line-height: 1.625;
+        color: rgba(10, 26, 79, 0.75);
+      }
       /* ================= Galeri riview (flexbox mosaic) ================= */
       .reviews {
         margin-top: 2.5rem;
@@ -1358,6 +1544,7 @@
 
       <!-- Navbar -->
       <header class="site-header">
+        <div class="menu-backdrop" data-menu-close aria-hidden="true"></div>
         <nav aria-label="Navigasi utama" class="site-nav">
           <a class="nav-logo" data-scroll-to="hero">
             <img
@@ -1371,6 +1558,7 @@
             <li><a data-scroll-to="tools">Produk</a></li>
             <li><a data-scroll-to="faq">FAQ</a></li>
             <li><a data-scroll-to="bukti">Testimoni</a></li>
+            <li><a href="#tutorial">Tutorial</a></li>
           </ul>
           <a
             class="wa-btn"
@@ -1380,27 +1568,53 @@
             data-track="Contact"
             data-track-event="KlikWhatsAppNavbar"
             data-track-name="Navbar"
+            >WhatsApp</a
           >
-            <span class="wa-arrow" aria-hidden="true">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                width="20"
-                height="20"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </span>
-            <img src="wa.png" alt="WhatsApp" width="24" height="24" />
-            <span class="wa-text">WhatsApp</span>
-          </a>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Buka menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
         </nav>
+        <div id="mobile-menu" class="mobile-menu">
+          <ul>
+            <li style="--i: 0">
+              <a data-scroll-to="tools" data-menu-close>Produk</a>
+            </li>
+            <li style="--i: 1">
+              <a data-scroll-to="faq" data-menu-close>FAQ</a>
+            </li>
+            <li style="--i: 2">
+              <a data-scroll-to="bukti" data-menu-close>Testimoni</a>
+            </li>
+            <li style="--i: 3">
+              <a href="#tutorial" data-menu-close>Tutorial</a>
+            </li>
+            <li style="--i: 4">
+              <a
+                class="menu-wa"
+                href="https://wa.me/6285977154689?text=Halo%2C%20saya%20mau%20tanya%20soal%20produk"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-menu-close
+                data-track="Contact"
+                data-track-event="KlikWhatsAppNavbarMobile"
+                data-track-name="Navbar Mobile"
+              >
+                <img src="wa.png" alt="" width="20" height="20" />
+                WhatsApp
+              </a>
+            </li>
+          </ul>
+        </div>
       </header>
-      <main>
+      <main id="home">
         <!-- SECTION 1: Hero -->
         <section id="hero" class="hero">
           <h1>
@@ -2077,6 +2291,81 @@
         </section>
       </main>
 
+      <!-- VIEW: Tutorial (tampil saat URL berakhiran #tutorial) -->
+      <main id="tutorial" hidden>
+        <section class="section tut-head">
+          <h1><span class="grad-text">Tutorial</span> Bengkel AI</h1>
+          <p>Tonton cara memakai tiap tools supaya hasilnya maksimal.</p>
+        </section>
+        <section class="section" style="padding-top: 0">
+          <div class="tut-list">
+            <article class="tut-item">
+              <div class="video-wrap">
+                <!-- Ganti src dengan link embed video tutorial -->
+                <iframe
+                  src="about:blank"
+                  title="Tutorial 1"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                  "
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <h2>Cara pakai Prompt Generator</h2>
+              <p>Deskripsi singkat tutorial.</p>
+            </article>
+            <article class="tut-item">
+              <div class="video-wrap">
+                <!-- Ganti src dengan link embed video tutorial -->
+                <iframe
+                  src="about:blank"
+                  title="Tutorial 2"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                  "
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <h2>Cara pakai Presentation Builder</h2>
+              <p>Deskripsi singkat tutorial.</p>
+            </article>
+            <article class="tut-item">
+              <div class="video-wrap">
+                <!-- Ganti src dengan link embed video tutorial -->
+                <iframe
+                  src="about:blank"
+                  title="Tutorial 3"
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                  "
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <h2>Cara pakai Image Prompt Builder</h2>
+              <p>Deskripsi singkat tutorial.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
       <footer class="site-footer">
         © <span id="year">2026</span> Bengkel AI
       </footer>
@@ -2160,11 +2449,44 @@
         }
       });
 
+      /* ===== View switch: #tutorial menampilkan halaman tutorial ===== */
+      var homeView = document.getElementById("home");
+      var tutorialView = document.getElementById("tutorial");
+      var homeTitle = document.title;
+
+      function showView() {
+        var isTutorial = location.hash === "#tutorial";
+        homeView.hidden = isTutorial;
+        tutorialView.hidden = !isTutorial;
+        document.title = isTutorial ? "Tutorial - Bengkel AI" : homeTitle;
+        document.querySelectorAll('a[href="#tutorial"]').forEach(function (a) {
+          a.classList.toggle("active", isTutorial);
+          if (isTutorial) a.setAttribute("aria-current", "page");
+          else a.removeAttribute("aria-current");
+        });
+        if (isTutorial) {
+          document.querySelectorAll(".nav-links a").forEach(function (a) {
+            if (a.getAttribute("href") !== "#tutorial")
+              a.classList.remove("active");
+          });
+          window.scrollTo(0, 0);
+          trackPH("view_section", { section: "tutorial" });
+        }
+      }
+
+      window.addEventListener("hashchange", showView);
+      showView();
+
       /* ===== Scroll smooth untuk [data-scroll-to] (nav links, CTA, dll.) ===== */
       document.addEventListener("click", function (e) {
         var el = e.target.closest("[data-scroll-to]");
         if (!el) return;
         e.preventDefault();
+        /* Dari view tutorial: kembali ke landing page dulu */
+        if (homeView.hidden) {
+          history.pushState(null, "", location.pathname + location.search);
+          showView();
+        }
         var target = document.getElementById(el.dataset.scrollTo);
         if (target) target.scrollIntoView({ behavior: "smooth" });
         /* Toggle active class pada nav links */
@@ -2175,6 +2497,41 @@
           el.classList.add("active");
         }
       });
+
+      /* ===== Hamburger menu (mobile) ===== */
+      (function () {
+        var header = document.querySelector(".site-header");
+        var toggle = header && header.querySelector(".nav-toggle");
+        var menu = document.getElementById("mobile-menu");
+        if (!toggle || !menu) return;
+
+        function setOpen(open) {
+          header.classList.toggle("menu-open", open);
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+          menu.inert = !open;
+          if (open) trackPH("open_mobile_menu");
+        }
+
+        setOpen(false);
+        toggle.addEventListener("click", function () {
+          setOpen(!header.classList.contains("menu-open"));
+        });
+        header.addEventListener("click", function (e) {
+          if (e.target.closest("[data-menu-close]")) setOpen(false);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && header.classList.contains("menu-open")) {
+            setOpen(false);
+            toggle.focus();
+          }
+        });
+        window
+          .matchMedia("(min-width: 768px)")
+          .addEventListener("change", function (mq) {
+            if (mq.matches) setOpen(false);
+          });
+      })();
 
       /* ===== Slider (port dari components/Slider.tsx): dots + drag manual ===== */
       const DRAG_THRESHOLD = 8;
